@@ -1,0 +1,31 @@
+body,html{
+  background: #9147ff;
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100vw;
+}
+
+.video,.divider,.chat{
+  background: #9147ff;
+  height: 100vh;
+}
+
+.video,.chat{
+  border: none;
+}
+
+.video{
+  width: 80%;
+}
+
+.divider{
+  cursor: col-resize;
+  width: 8px;
+}
+
+.chat{
+  width: 20%;
+}
