@@ -1,4 +1,5 @@
 body,html{
+  background: #9147ff;
   display: flex;
   height: 100vh;
   margin: 0;
@@ -22,7 +23,7 @@ body,html{
 
 .divider{
   cursor: col-resize;
-  width: 0.2%;
+  width: 8px;
 }
 
 .chat{
