@@ -1,0 +1,63 @@
+body,html{
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100vw;
+}
+
+.video,.chat{
+  border: none;
+}
+
+.divider{
+  background: red;
+  position: unset;
+}
+
+@media (orientation: landscape){
+  body,html{
+    flex-direction: row;
+  }
+
+  .video,.divider,.chat{
+    height: 100vh;
+  }
+
+  .video{
+    width: 80%;
+  }
+
+  .divider{
+    cursor: col-resize;
+    width: 8px;
+  }
+
+  .chat{
+    width: 20%;
+  }
+}
+
+@media (orientation: portrait){
+  body,html{
+    flex-direction: column;
+  }
+
+  .video,.divider,.chat{
+    width: 100vw;
+  }
+
+  .video{
+    height: 60%;
+  }
+
+  .divider{
+    cursor: row-resize;
+    height: 8px;
+  }
+
+  .chat{
+    height: 40%;
+  }
+}
