@@ -75,7 +75,7 @@ class Stream{
     this.divider.addEventListener("touchstart",resize_start);
     let resize_end = e=>{
       if(e.type.includes("touch")){
-        let touch = e.touches[0];
+        let touch = e.changedTouches[0];
         e.x = touch.clientX;
         e.y = touch.clientY;
       }
