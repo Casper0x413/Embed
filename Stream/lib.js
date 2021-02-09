@@ -47,7 +47,7 @@ class Stream{
       this.divider = document.createElement("div");
       this.divider.classList.add("divider");
       this.divider.resizing = false;
-      this.divider.snap_at = 8;
+      this.divider.snap_at = 128;
       this.divider.style.background = Stream.service[this.service].color_scheme;
       this.video = document.createElement("iframe");
       this.video.classList.add("video");
@@ -84,10 +84,9 @@ class Stream{
       this.divider.style.opacity = "1";
       this.divider.style[this.orientation == "portrait" ? "height" : "width"] = "8px";
       this.divider.style[this.orientation != "portrait" ? "height" : "width"] = `100v${this.orientation == "portrait" ? "h" : "w"}`;
-      this.divider.inner_snap = 100 * (e[this.orientation == "landscape" ? "x" : "y"] / window[this.orientation == "portrait" ? "innerHeight" : "innerWidth"]);
-      this.divider.outer_snap = 100 - this.divider.inner_snap;
+      this.divider.inner_snap = e[this.orientation == "landscape" ? "x" : "y"];
+      this.divider.outer_snap = window[this.orientation == "portrait" ? "innerHeight" : "innerWidth"] - e[this.orientation == "landscape" ? "x" : "y"];
       if(this.divider.inner_snap < this.divider.snap_at || this.divider.outer_snap < this.divider.snap_at){
-        console.log("triggered: snap point");
         this.video.style[this.orientation == "portrait" ? "height" : "width"] = this.divider.outer_snap < this.divider.snap_at ? "100%" : "0%";
         this.chat.style[this.orientation == "portrait" ? "height" : "width"] = !(this.divider.outer_snap < this.divider.snap_at) ? "100%" : "0%";
       }
