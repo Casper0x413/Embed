@@ -59,24 +59,26 @@ class Stream{
     });
   }
   resize_monitor(){
-    this.divider.addEventListener("mousedown",e=>{
+    let resize_start = e=>{
+      if(e.type.includes("touch")){
+        let touch = e.touches[0];
+        e.x = touch.clientX;
+        e.y = touch.clientY;
+      }
       this.resizing = true;
       this.divider.style.position = "absolute";
       this.divider.style.opacity = "0.2";
       this.divider.style.height = "100vh";
       this.divider.style.width = "100vw";
-    });
-    // this.divider.addEventListener("touchstart",e=>{
-    //   e = e.touches[0];
-    //   e.x = e.clientX;
-    //   e.y = e.clientY;
-    //   this.resizing = true;
-    //   this.divider.style.position = "absolute";
-    //   this.divider.style.opacity = "0.2";
-    //   this.divider.style.height = "100vh";
-    //   this.divider.style.width = "100vw";
-    // });
-    this.divider.addEventListener("mouseup",e=>{
+    };
+    this.divider.addEventListener("mousedown",resize_start);
+    this.divider.addEventListener("touchstart",resize_start);
+    let resize_end = e=>{
+      if(e.type.includes("touch")){
+        let touch = e.touches[0];
+        e.x = touch.clientX;
+        e.y = touch.clientY;
+      }
       this.resizing = false;
       this.divider.style.position = "unset";
       this.divider.style.opacity = "1";
@@ -85,44 +87,27 @@ class Stream{
       this.divider.inner_snap = 100 * (e[this.orientation == "landscape" ? "x" : "y"] / window[this.orientation == "portrait" ? "innerHeight" : "innerWidth"]);
       this.divider.outer_snap = 100 - this.divider.inner_snap;
       if(this.divider.inner_snap < this.divider.snap_at || this.divider.outer_snap < this.divider.snap_at){
+        console.log("triggered: snap point");
         this.video.style[this.orientation == "portrait" ? "height" : "width"] = this.divider.outer_snap < this.divider.snap_at ? "100%" : "0%";
         this.chat.style[this.orientation == "portrait" ? "height" : "width"] = !(this.divider.outer_snap < this.divider.snap_at) ? "100%" : "0%";
       }
-    });
-    // this.divider.addEventListener("touchend",e=>{
-    //   e = e.touches[0];
-    //   e.x = e.clientX;
-    //   e.y = e.clientY;
-    //   this.resizing = false;
-    //   this.divider.style.position = "unset";
-    //   this.divider.style.opacity = "1";
-    //   this.divider.style[this.orientation == "portrait" ? "height" : "width"] = "8px";
-    //   this.divider.style[this.orientation != "portrait" ? "height" : "width"] = `100v${this.orientation == "portrait" ? "h" : "w"}`;
-    //   this.divider.inner_snap = 100 * (e[this.orientation == "landscape" ? "x" : "y"] / window[this.orientation == "portrait" ? "innerHeight" : "innerWidth"]);
-    //   this.divider.outer_snap = 100 - this.divider.inner_snap;
-    //   if(this.divider.inner_snap < this.divider.snap_at || this.divider.outer_snap < this.divider.snap_at){
-    //     console.log("triggered: snap point");
-    //     this.video.style[this.orientation == "portrait" ? "height" : "width"] = this.divider.outer_snap < this.divider.snap_at ? "100%" : "0%";
-    //     this.chat.style[this.orientation == "portrait" ? "height" : "width"] = !(this.divider.outer_snap < this.divider.snap_at) ? "100%" : "0%";
-    //   }
-    // });
-    this.divider.addEventListener("mousemove",e=>{
+    };
+    this.divider.addEventListener("mouseup",resize_end);
+    this.divider.addEventListener("touchend",resize_end);
+    let resize_move = e=>{
+      if(e.type.includes("touch")){
+        let touch = e.touches[0];
+        e.x = touch.clientX;
+        e.y = touch.clientY;
+      }
       if(!this.resizing)return;
       let video_size = 100 * (e[this.orientation == "landscape" ? "x" : "y"] / window[this.orientation == "landscape" ? "innerWidth" : "innerHeight"]);
       let chat_size = 100 - video_size;
       this.video.style[this.orientation == "portrait" ? "height" : "width"] = `${video_size}%`;
       this.chat.style[this.orientation == "portrait" ? "height" : "width"] = `${chat_size}%`;
-    });
-    // this.divider.addEventListener("touchmove",e=>{
-    //   e = e.touches[0];
-    //   e.x = e.clientX;
-    //   e.y = e.clientY;
-    //   if(!this.resizing)return;
-    //   let video_size = 100 * (e[this.orientation == "landscape" ? "x" : "y"] / window[this.orientation == "landscape" ? "innerWidth" : "innerHeight"]);
-    //   let chat_size = 100 - video_size;
-    //   this.video.style[this.orientation == "portrait" ? "height" : "width"] = `${video_size}%`;
-    //   this.chat.style[this.orientation == "portrait" ? "height" : "width"] = `${chat_size}%`;
-    // });
+    };
+    this.divider.addEventListener("mousemove",resize_move);
+    this.divider.addEventListener("touchmove",resize_move);
     window.addEventListener('resize',()=>{
       let orientation = window.innerWidth > window.innerHeight ? "landscape" : "portrait";
       if(this.orientation != orientation){
