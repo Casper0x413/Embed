@@ -7,13 +7,57 @@ body,html{
   width: 100vw;
 }
 
+.hidden{
+  display: none;
+}
+
 .video,.chat{
   border: none;
 }
 
 .divider{
-  background: red;
+  background: #010101;
   position: unset;
+}
+
+form{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+form>input{
+  background: rgba(64,64,64,0.2);
+  border: 2px solid #010101;
+  border-right: none;
+  font-family: Consolas;
+  font-size: 24px;
+  font-weight: bold;
+  height: 48px;
+  outline: none;
+  padding: 2px 8px;
+  text-align: center;
+  width: 256px;
+}
+
+form>input,form>input::placeholder{
+  color: #010101;
+}
+
+form>input:focus,form>input:hover{
+  background: rgba(64,64,64,0.4);
+}
+
+form>input:last-child{
+  border-right: 2px solid #010101;
+}
+
+.stream_button{
+  cursor: pointer;
+  height: 56px;
+  width: 128px;
 }
 
 @media (orientation: landscape){
@@ -59,5 +103,25 @@ body,html{
 
   .chat{
     height: 40%;
+  }
+}
+
+@media screen and (max-width: 384px){
+  form{
+    flex-direction: column;
+  }
+
+  form>input{
+    border: 2px solid #010101;
+    border-bottom: none;
+    width: calc(100vw - 32px);
+  }
+
+  form>input:last-child{
+    border-bottom: 2px solid #010101;
+  }
+
+  .stream_button{
+    width: calc(100vw - 12px);
   }
 }
